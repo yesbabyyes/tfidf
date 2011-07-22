@@ -78,3 +78,16 @@ exports.testAnalyzeWithTwoIdenticalDocs = function(test) {
     test.equal(data.tfidf("foo bar"), 0.5);
     test.done();
 };
+
+exports.testAnalyzeWithStopWords = function(test) {
+    test.expect(1);
+    var corpus = [
+        "a foo bar too", "baz qux", "qux quuux", "bar baz", "bar qux",
+        "bar quux", "qux bar", "quux bar", "quux baz", "bar",
+        "qux", "quux", "padme hum", "mane hum", "fie foe",
+        "fee fie", "fie fee", "baz foe", "fie bar", "frompel hompel"
+    ];
+    var data = tfidf.analyze("too", corpus, ["a", "too"]);
+    test.equal(data.tfidf("a foo bar too"), 0);
+    test.done();
+};
