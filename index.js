@@ -1,1 +1,1 @@
-exports = require("./lib/tfidf");
+module.exports = require("./lib/tfidf");
