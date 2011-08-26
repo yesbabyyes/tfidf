@@ -1,8 +1,37 @@
 tfidf = require("../lib/tfidf");
 
+exports.testReduce = function(test) {
+    test.expect(1);
+    test.deepEqual(["foo", "bar"].reduce(tfidf.reduce, {}),
+        {"foo": 0.5, "bar": 0.5}
+    );
+    test.done();
+};
+
 exports.testTf = function(test) {
     test.expect(1);
-    test.equal(tfidf.tf("foo", ["foo", "bar", "foo", "qux", "quux", "foo", "baz"]), 3 / 7);
+    test.deepEqual(tfidf.tf(["foo", "bar", "foo", "qux", "quux", "foo", "baz"]),
+        {
+            "foo": 3 / 7,
+            "bar": 1 / 7,
+            "qux": 1 / 7,
+            "quux": 1 / 7,
+            "baz": 1 / 7
+        }
+    );
+    test.done();
+};
+
+exports.testTfWithStopWords = function(test) {
+    test.expect(1);
+    test.deepEqual(tfidf.tf(["foo", "bar", "foo", "qux", "quux", "foo", "baz"], ["bar"]),
+        {
+            "foo": 3 / 6,
+            "qux": 1 / 6,
+            "quux": 1 / 6,
+            "baz": 1 / 6
+        }
+    );
     test.done();
 };
 
