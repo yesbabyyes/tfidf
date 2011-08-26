@@ -2,7 +2,7 @@
   "author": "Linus G Thiel <linus@hanssonlarsson.se> (http://hanssonlarsson.se/)",
   "name": "tfidf",
   "description": "tf-idf implementation",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git@github.com:hanssonlarsson/tfidf.git"
