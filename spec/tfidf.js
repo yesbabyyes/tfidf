@@ -2,7 +2,7 @@ tfidf = require("../lib/tfidf");
 
 exports.testTf = function(test) {
     test.expect(1);
-    test.equal(tfidf.tf("foo", "foo bar foo qux quux foo baz"), 3 / 7);
+    test.equal(tfidf.tf("foo", ["foo", "bar", "foo", "qux", "quux", "foo", "baz"]), 3 / 7);
     test.done();
 };
 
@@ -20,8 +20,8 @@ exports.testAnalyze = function(test) {
         "qux", "quux", "padme hum", "mane hum", "fie foe",
         "fee fie", "fie fee", "baz foe", "fie bar", "frompel hompel"
     ];
-    var data = tfidf.analyze("foo", corpus);
-    test.equal(data.tfidf("foo bar"), 0.5);
+    var data = tfidf.analyze(corpus);
+    test.equal(data.tfidf("foo", "foo bar"), 0.5);
     test.done();
 };
 
@@ -33,7 +33,7 @@ exports.testAnalyzeAndSave = function(test) {
         "qux", "quux", "padme hum", "mane hum", "fie foe",
         "fee fie", "fie fee", "baz foe", "fie bar", "frompel hompel"
     ];
-    var data = tfidf.analyze("foo", corpus),
+    var data = tfidf.analyze(corpus),
         json = data.asJSON();
     test.ok(JSON.parse(json));
     test.done();
@@ -47,9 +47,9 @@ exports.testAnalyzeSerializedCorpus = function(test) {
         "qux", "quux", "padme hum", "mane hum", "fie foe",
         "fee fie", "fie fee", "baz foe", "fie bar", "frompel hompel"
     ];
-    var json = tfidf.analyze("foo", corpus).asJSON(),
+    var json = tfidf.analyze(corpus).asJSON(),
         data = tfidf.analyze(json);
-    test.equal(data.tfidf("foo bar"), 0.5);
+    test.equal(data.tfidf("foo", "foo bar"), 0.5);
     test.done();
 };
 
@@ -61,8 +61,8 @@ exports.testAnalyzeWithOneNewDoc = function(test) {
         "qux", "quux", "padme hum", "mane hum", "fie foe",
         "fee fie", "fie fee", "baz foe", "fie bar", "frompel hompel"
     ];
-    var data = tfidf.analyze("foo", corpus);
-    test.equal(data.tfidf("foo baz"), 0.5);
+    var data = tfidf.analyze(corpus);
+    test.equal(data.tfidf("foo", "foo baz"), 0.5);
     test.done();
 };
 
@@ -74,8 +74,8 @@ exports.testAnalyzeWithTwoIdenticalDocs = function(test) {
         "qux", "quux", "padme hum", "mane hum", "fie foe",
         "fee fie", "fie fee", "baz foe", "fie bar", "frompel hompel"
     ];
-    var data = tfidf.analyze("foo", corpus);
-    test.equal(data.tfidf("foo bar"), 0.5);
+    var data = tfidf.analyze(corpus);
+    test.equal(data.tfidf("foo", "foo bar"), 0.5);
     test.done();
 };
 
@@ -87,7 +87,7 @@ exports.testAnalyzeWithStopWords = function(test) {
         "qux", "quux", "padme hum", "mane hum", "fie foe",
         "fee fie", "fie fee", "baz foe", "fie bar", "frompel hompel"
     ];
-    var data = tfidf.analyze("too", corpus, ["a", "too"]);
-    test.equal(data.tfidf("a foo bar too"), 0);
+    var data = tfidf.analyze(corpus, ["a", "too"]);
+    test.equal(data.tfidf("too", "a foo bar too"), 0);
     test.done();
 };
