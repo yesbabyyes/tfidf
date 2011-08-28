@@ -4,7 +4,7 @@ tfidf
 `tfidf` is a simple text frequency-inverse document frequency library for Node.js.
 
 ## Version
-0.2.1
+0.2.2
 
 ## Installation
 
