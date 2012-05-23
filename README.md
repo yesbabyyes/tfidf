@@ -20,10 +20,10 @@ tfidf
     console.log(data.tfidf(doc1));
 
     // Get the analyzed corpus as JSON, for later use
-    fs.writeFileSync("japherwockyFrequency.json", data.asJSON(), "utf8");
+    fs.writeFileSync("japherwockyFrequency.json", data.asJSON());
 
     // Load the analyzed corpus again, later
-    var data = tfidf.analyze(fs.readFileSync("japherwockyFrequency.json"), "utf8");
+    var data = tfidf.analyze(fs.readFileSync("japherwockyFrequency.json", "utf8"));
 
 ## Credits
 
