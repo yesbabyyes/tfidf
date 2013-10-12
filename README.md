@@ -13,11 +13,16 @@ tfidf
 ## Usage
     var tfidf = require("tfidf");
 
+    // Document samples
+    var doc1 = 'I code in ruby.';
+    var doc2 = 'I code in C and node, but node more often.';
+    var doc3 = 'This document is about TFIDF, written in node';
+
     // Analyze the data
     var data = tfidf.analyze([doc1, doc2, doc3], tfidf.stopWords);
 
-    // Get tfidf for a term in a document
-    console.log(data.tfidf("node", doc1));
+    // Get tfidf for a term in a document, should be 1 * log(3 / 2)
+    console.log(data.tfidf("code", doc1));
 
     // Get the analyzed corpus as JSON, for later use
     fs.writeFileSync("japherwockyFrequency.json", data.asJSON());
