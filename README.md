@@ -14,10 +14,10 @@ tfidf
     var tfidf = require("tfidf");
 
     // Analyze the data
-    var data = tfidf.analyze("japherwocky", [doc1, doc2, doc3], stopWords);
+    var data = tfidf.analyze([doc1, doc2, doc3], tfidf.stopWords);
 
-    // Get tfidf for a document
-    console.log(data.tfidf(doc1));
+    // Get tfidf for a term in a document
+    console.log(data.tfidf("node", doc1));
 
     // Get the analyzed corpus as JSON, for later use
     fs.writeFileSync("japherwockyFrequency.json", data.asJSON());
